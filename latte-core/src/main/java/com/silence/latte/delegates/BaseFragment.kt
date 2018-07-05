@@ -21,6 +21,8 @@ abstract class BaseFragment: BaseSupportFragment() {
             rootView = inflater.inflate(setLayout() as Int, container, false)
         } else if (setLayout() is View) {
             rootView = setLayout() as View
+        } else{
+            throw ClassCastException("type of setLayout() must be int or view!")
         }
         return rootView
     }
