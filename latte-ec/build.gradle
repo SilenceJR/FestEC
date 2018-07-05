@@ -27,4 +27,6 @@ android {
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     api project(':latte-core')
+
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }
