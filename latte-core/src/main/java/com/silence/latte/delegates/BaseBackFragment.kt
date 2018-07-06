@@ -1,6 +1,5 @@
 package com.silence.latte.delegates
 
-import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
@@ -16,12 +15,11 @@ import com.silence.latte.R
  *  @time:    2018/7/5 / 18:10
  *
  */
-abstract class BaseFragment: BaseSupportFragment() {
+abstract class BaseBackFragment: BaseSupportFragment() {
 
     abstract fun setLayout(): Any
     abstract fun initView(view: View, savedInstanceState: Bundle?)
     protected var mUbinder: Unbinder? = null
-    private var mOpenDrawerListener: OnFragmentOpenDrawerListener ?= null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var rootView: View? = null
@@ -41,20 +39,8 @@ abstract class BaseFragment: BaseSupportFragment() {
     }
 
     fun initToolbar(toolbar: Toolbar) {
-        initToolbar(toolbar, false)
-    }
-
-    fun initToolbar(toolbar: Toolbar, isHome: Boolean) {
-        toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp)
-        toolbar.setNavigationOnClickListener {  }
-    }
-
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        if (context is OnFragmentOpenDrawerListener) {
-            mOpenDrawerListener = context
-        }
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
+        toolbar.setNavigationOnClickListener { v -> pop() }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,10 +53,6 @@ abstract class BaseFragment: BaseSupportFragment() {
         if (null != mUbinder) {
             mUbinder!!.unbind()
         }
-    }
-
-    interface OnFragmentOpenDrawerListener {
-        fun onOpenDrawer(): Any
     }
 
 
