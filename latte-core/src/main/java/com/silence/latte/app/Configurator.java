@@ -22,6 +22,7 @@ public class Configurator {
     }
 
     public final void configure() {
+        initIcons();
         LATTE_CONFIGS.put(ConfigType.CONFIG_READY.name(), true);
     }
 

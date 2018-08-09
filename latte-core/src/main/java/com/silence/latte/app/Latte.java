@@ -1,9 +1,9 @@
 package com.silence.latte.app;
 
+
 import android.content.Context;
 
 import java.util.HashMap;
-import java.util.WeakHashMap;
 
 public final class Latte {
 

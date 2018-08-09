@@ -5,10 +5,6 @@ import android.support.v7.widget.Toolbar
 
 class BaseBackActivity: BaseSupportActivity() {
 
-    protected fun initBackToolbar(toorbar: Toolbar) {
-//        toorbar.navigationIcon =
-    }
-
 
 
 }

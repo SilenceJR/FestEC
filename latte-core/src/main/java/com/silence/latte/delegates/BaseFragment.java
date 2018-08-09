@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.silence.latte.R;
+import com.silence.latte.activity.ProxyActivity;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -18,7 +19,7 @@ import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
 /**
  * A simple {@link Fragment} subclass.
  */
-public abstract class BaseDelegate extends SwipeBackFragment {
+public abstract class BaseFragment extends SwipeBackFragment {
 
     private Unbinder mUnbinder = null;
 
@@ -40,6 +41,10 @@ public abstract class BaseDelegate extends SwipeBackFragment {
             onBindView(savedInstanceState, rootView);
         }
         return rootView;
+    }
+
+    public final ProxyActivity getProxyActivity() {
+        return (ProxyActivity) _mActivity;
     }
 
     @Override

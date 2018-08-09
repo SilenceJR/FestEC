@@ -9,6 +9,10 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 
@@ -28,7 +32,7 @@ public class RxRestClient {
     }
 
     private Observable<String> request(HttpMethod method) {
-        final RxRestService service = RestCreator.getRxRestServiceHolder();
+        final RxRestService service = RestCreator.getRxRestService();
 
         Observable<String> observable = null;
 
@@ -56,7 +60,7 @@ public class RxRestClient {
 
     }
 
-    public final Observable<String> get() {
+    public final Observable get() {
         return request(HttpMethod.GET);
     }
 

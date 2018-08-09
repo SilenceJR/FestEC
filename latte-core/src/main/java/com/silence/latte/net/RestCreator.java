@@ -29,7 +29,7 @@ public class RestCreator {
         return RestServiceHolder.REST_SERVICE;
     }
 
-    public static RxRestService getRxRestServiceHolder() {
+    public static RxRestService getRxRestService() {
         return RxRestServiceHolder.RX_REST_SERVICE;
     }
 

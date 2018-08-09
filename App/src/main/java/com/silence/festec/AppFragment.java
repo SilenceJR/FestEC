@@ -2,30 +2,26 @@ package com.silence.festec;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.silence.latte.app.Latte;
-import com.silence.latte.delegates.LatteDelegate;
-import com.silence.latte.net.RestClient;
-import com.silence.latte.net.RestClientBuilder;
+import com.silence.latte.delegates.LatteFragment;
 import com.silence.latte.net.RestCreator;
-import com.silence.latte.net.callback.IError;
-import com.silence.latte.net.callback.IFailure;
-import com.silence.latte.net.callback.IRequest;
-import com.silence.latte.net.callback.ISuccess;
 import com.silence.latte.net.rx.RxRestClient;
 
 import java.util.WeakHashMap;
 
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class AppDelegate extends LatteDelegate {
+public class AppFragment extends LatteFragment {
+
+
     @Override
     public Object setLayout() {
         return R.layout.delegate_app;
@@ -34,6 +30,15 @@ public class AppDelegate extends LatteDelegate {
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         testRestClient2();
+
+
+
+        FragmentManager fm = getFragmentManager();
+//        fm.beginTransaction().replace(R.id.comm_fragment, gankioFragment).commit();
+
+
+
+
     }
 
     private void testRestClient() {
@@ -95,8 +100,8 @@ public class AppDelegate extends LatteDelegate {
     private void testRestClient2() {
 
 
-        RestCreator.getRxRestServiceHolder()
-                .get("http://www.baidu.com", new WeakHashMap<String, Object>())
+        RestCreator.getRxRestService()
+                .get("http://gank.io/api/data/Android/10/1", new WeakHashMap<String, Object>())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
@@ -113,6 +118,8 @@ public class AppDelegate extends LatteDelegate {
 
                     @Override
                     public void onError(Throwable e) {
+                        Toast.makeText(Latte.getApplication(), e.getMessage(), Toast.LENGTH_LONG).show();
+                        Log.d("http", e.getMessage());
 
                     }
 
