@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatButton;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
@@ -42,6 +41,16 @@ public class RegisterFragment extends LatteFragment {
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
 
     }
+
+    public static RegisterFragment newInstance() {
+
+        Bundle args = new Bundle();
+
+        RegisterFragment fragment = new RegisterFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
 
     private boolean checkForm() {
         String name = mEditRegisterName.getText().toString();
@@ -93,4 +102,5 @@ public class RegisterFragment extends LatteFragment {
             Toast.makeText(getContext(), "恭喜你， 注册成功了", Toast.LENGTH_LONG).show();
         }
     }
+
 }

@@ -8,7 +8,11 @@ import android.view.View;
 import com.silence.latte.delegates.LatteFragment;
 import com.silence.latte.ec.R;
 import com.silence.latte.ec.R2;
-import com.silence.latte.ec.register.RegisterFragment;
+import com.silence.latte.ec.main.index.AppBottomFragment;
+import com.silence.latte.ec.main.top.AppTopFragment;
+import com.silence.latte.ec.ui.fragment.AppFragment;
+import com.silence.latte.ui.launcher.ScrollLauncherTag;
+import com.silence.latte.util.storage.LattePreference;
 import com.silence.latte.util.timer.BaseTimerTask;
 import com.silence.latte.util.timer.ITimerListener;
 
@@ -18,6 +22,7 @@ import java.util.Timer;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+@SuppressWarnings("ALL")
 public class LauncherFragment extends LatteFragment implements ITimerListener {
 
     @BindView(R2.id.tv_launcher_timer)
@@ -39,7 +44,14 @@ public class LauncherFragment extends LatteFragment implements ITimerListener {
         mTimer = new Timer();
         final BaseTimerTask timerTask = new BaseTimerTask(this);
         mTimer.schedule(timerTask, 0, 1000);
+    }
 
+    private void checkIsShowScroll() {
+        if (!LattePreference.getAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name())) {
+            startWithPop(LauncherScrollFragment.newInstance());
+        } else {
+            startWithPop(AppTopFragment.newInstance());
+        }
     }
 
     @Override
@@ -54,7 +66,7 @@ public class LauncherFragment extends LatteFragment implements ITimerListener {
                         if (null != mTimer) {
                             mTimer.cancel();
                             mTimer = null;
-                            startWithPop(new RegisterFragment());
+                            checkIsShowScroll();
                         }
                     }
                 }
@@ -67,7 +79,7 @@ public class LauncherFragment extends LatteFragment implements ITimerListener {
         if (null != mTimer) {
             mTimer.cancel();
             mTimer = null;
-            startWithPop(new RegisterFragment());
+            checkIsShowScroll();
         }
     }
 

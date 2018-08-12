@@ -8,9 +8,11 @@ import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * @author Silence
@@ -33,13 +35,13 @@ public class RestCreator {
         return RxRestServiceHolder.RX_REST_SERVICE;
     }
 
-
     private static final class RetrofitHolder {
         private static final String BAST_URL = (String) Latte.getConfigurations().get(ConfigType.API_HOST.name());
         private static final Retrofit RETORFIT_CLOENT = new Retrofit.Builder()
                 .baseUrl(BAST_URL)
                 .client(OkHttpHolder.OK_HTTP_CLIENT)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(ScalarsConverterFactory.create())
+//                .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
@@ -51,6 +53,7 @@ public class RestCreator {
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .readTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
+                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build();
     }
 
@@ -61,6 +64,5 @@ public class RestCreator {
     private static final class RxRestServiceHolder{
         private static final RxRestService RX_REST_SERVICE = RetrofitHolder.RETORFIT_CLOENT.create(RxRestService.class);
     }
-
 
 }

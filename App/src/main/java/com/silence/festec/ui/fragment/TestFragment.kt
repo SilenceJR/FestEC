@@ -1,12 +1,9 @@
 package com.silence.festec.ui.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.silence.festec.R
-import com.silence.latte.delegates.BaseFragment
-import com.silence.latte.delegates.BaseSupportFragment
+import com.silence.latte.delegates.BaseSwipeFragment
 
 /**
  *
@@ -14,14 +11,14 @@ import com.silence.latte.delegates.BaseSupportFragment
  *  @time:    2018/7/10 / 15:23
  *
  */
-class TestFragment: BaseFragment() {
+class TestFragment: BaseSwipeFragment() {
+
+    override fun onBindView(savedInstanceState: Bundle?, rootView: View?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override fun setLayout(): Any {
         return R.layout.fragment_test
-    }
-
-    override fun initView(view: View, savedInstanceState: Bundle?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 

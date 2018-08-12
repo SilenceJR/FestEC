@@ -11,15 +11,19 @@ import android.view.ViewGroup;
 
 import com.silence.latte.R;
 import com.silence.latte.activity.ProxyActivity;
+import com.silence.latte.mvp.contract.IContract;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
 
 /**
  * A simple {@link Fragment} subclass.
+ * @author Silence
  */
-public abstract class BaseFragment extends SwipeBackFragment {
+public abstract class BaseSwipeFragment extends SwipeBackFragment{
 
     private Unbinder mUnbinder = null;
 
@@ -38,9 +42,14 @@ public abstract class BaseFragment extends SwipeBackFragment {
         }
         if (null != rootView) {
             mUnbinder = ButterKnife.bind(this, rootView);
-            onBindView(savedInstanceState, rootView);
         }
         return rootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        onBindView(savedInstanceState, view);
     }
 
     public final ProxyActivity getProxyActivity() {

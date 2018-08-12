@@ -1,12 +1,14 @@
 package com.silence.latte.ui;
 
 import android.content.Context;
+import android.os.Handler;
 import android.support.v7.app.AppCompatDialog;
 import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.silence.latte.util.DimenUtil;
+import com.silence.latte.R;
+import com.silence.latte.util.dimen.DimenUtil;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ public class LatteLoader {
 
     public static void showLoading(Context context, String type) {
 
-        final AppCompatDialog dialog = new AppCompatDialog(context);
+        final AppCompatDialog dialog = new AppCompatDialog(context, R.style.dialog);
 
         final AVLoadingIndicatorView avLoadingIndicatorView = LoaderCreator.create(type, context);
         dialog.setContentView(avLoadingIndicatorView);
@@ -40,11 +42,34 @@ public class LatteLoader {
         }
 
         LOADERS.add(dialog);
+        dialog.setCancelable(false);
         dialog.show();
     }
 
     public static void showLoading(Context context) {
         showLoading(context, DEFAULT_LOADER);
+    }
+
+    public static void showLoadingDelayedStop(Context context, int millis) {
+        showLoading(context, DEFAULT_LOADER);
+        new Handler()
+                .postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        stopLoading();
+                    }
+                }, millis);
+    }
+
+    public static void showLoadingDelayedStop(Context context, String type, int millis) {
+        showLoading(context, type);
+        new Handler()
+                .postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        stopLoading();
+                    }
+                }, millis);
     }
 
     public static void stopLoading() {

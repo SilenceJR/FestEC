@@ -1,12 +1,10 @@
 package com.silence.latte.activity;
 
 import android.annotation.SuppressLint;
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.ContentFrameLayout;
-import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.silence.latte.R;

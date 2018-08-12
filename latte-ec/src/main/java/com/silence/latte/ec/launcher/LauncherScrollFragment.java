@@ -8,7 +8,10 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.silence.latte.delegates.LatteFragment;
 import com.silence.latte.ec.R;
+import com.silence.latte.ec.register.RegisterFragment;
 import com.silence.latte.ui.launcher.LauncherHolderCreator;
+import com.silence.latte.ui.launcher.ScrollLauncherTag;
+import com.silence.latte.util.storage.LattePreference;
 
 import java.util.ArrayList;
 
@@ -16,6 +19,16 @@ public class LauncherScrollFragment extends LatteFragment implements OnItemClick
 
     private ConvenientBanner<Integer> mConvenientBanner = null;
     private static final ArrayList<Integer> INTEGERS = new ArrayList<>();
+
+    public static LauncherScrollFragment newInstance() {
+
+        Bundle args = new Bundle();
+
+        LauncherScrollFragment fragment = new LauncherScrollFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
 
     private void initBanner() {
         INTEGERS.add(R.drawable.launcher_01);
@@ -36,12 +49,17 @@ public class LauncherScrollFragment extends LatteFragment implements OnItemClick
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         initBanner();
+
     }
 
     @Override
     public void onItemClick(int position) {
         if (position == INTEGERS.size() - 1) {
-            //TODO 最后一张了
+            LattePreference.setAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name(), true);
+            //检测用户是否登录
+
+            startWithPop(RegisterFragment.newInstance());
         }
     }
+
 }
