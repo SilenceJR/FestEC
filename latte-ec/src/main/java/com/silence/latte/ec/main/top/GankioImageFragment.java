@@ -1,14 +1,21 @@
 package com.silence.latte.ec.main.top;
 
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.transition.Fade;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.TransitionInflater;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.silence.latte.delegates.BaseMvpSwipeFragment;
 import com.silence.latte.ec.R;
 import com.silence.latte.ec.R2;
@@ -18,6 +25,8 @@ import com.silence.latte.ec.mvp.contract.GankioImageContract;
 import com.silence.latte.ec.mvp.model.GankioImageModelImpl;
 import com.silence.latte.ec.mvp.presenter.GankioImagePresenterImpl;
 import com.silence.latte.ui.buttom.BottomItemFragment;
+import com.silence.latte.ui.photo.PhotoFragment;
+import com.silence.latte.ui.top.BaseTopFragment;
 
 import java.util.LinkedList;
 
@@ -131,5 +140,19 @@ public class GankioImageFragment extends BaseMvpSwipeFragment implements BaseQui
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
+        GankioImageBean item = (GankioImageBean) adapter.getData().get(position);
+        ImageView iv = view.findViewById(R.id.iv);
+        PhotoFragment toFragment = PhotoFragment.newInstance(item.getUrl());
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            toFragment.setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
+            setExitTransition(new Fade());
+            toFragment.setSharedElementReturnTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
+            ((AppTopFragment) getParentFragment()).extraTransaction()
+                    .addSharedElement(iv, "image")
+                    .start(toFragment);
+        } else {
+            ((AppTopFragment) getParentFragment()).start(toFragment);
+        }
     }
+
 }

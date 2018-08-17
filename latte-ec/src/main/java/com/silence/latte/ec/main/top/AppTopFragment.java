@@ -10,6 +10,8 @@ import com.silence.latte.ui.top.TopFragment;
 
 import java.util.LinkedList;
 
+import me.yokeyword.fragmentation.ISupportFragment;
+
 /**
  * A simple {@link Fragment} subclass.
  */

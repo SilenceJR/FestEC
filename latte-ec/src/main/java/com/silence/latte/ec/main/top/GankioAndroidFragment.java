@@ -131,9 +131,9 @@ public class GankioAndroidFragment extends BaseMvpSwipeFragment implements BaseQ
 
         } else {
             if (mAdapter.isLoading()) {
-                mAdapter.loadMoreFail();
+                mAdapter.loadMoreEnd();
             }
-            mAdapter.setEnableLoadMore(true);
+            mAdapter.setEnableLoadMore(false);
         }
     }
 }

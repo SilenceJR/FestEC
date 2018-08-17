@@ -1,6 +1,7 @@
 package com.silence.latte.ec.adapter;
 
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.widget.ImageView;
 
@@ -22,6 +23,7 @@ public class GankioImageAdapter extends BaseQuickAdapter<GankioImageBean, BaseVi
     @Override
     protected void convert(BaseViewHolder helper, GankioImageBean item) {
         final RatioImageView iv = (RatioImageView) helper.getView(R.id.iv);
+        ViewCompat.setTransitionName(iv, String.valueOf(helper.getAdapterPosition()) + "_image");
         iv.setRatio(0.618F);
         Glide.with(mContext)
                 .load(item.getUrl())

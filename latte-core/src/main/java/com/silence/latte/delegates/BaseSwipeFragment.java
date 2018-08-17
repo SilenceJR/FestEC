@@ -21,9 +21,10 @@ import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
 
 /**
  * A simple {@link Fragment} subclass.
+ *
  * @author Silence
  */
-public abstract class BaseSwipeFragment extends SwipeBackFragment{
+public abstract class BaseSwipeFragment extends SwipeBackFragment {
 
     private Unbinder mUnbinder = null;
 

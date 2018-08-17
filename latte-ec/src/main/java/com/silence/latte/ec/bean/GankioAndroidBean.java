@@ -13,4 +13,20 @@ public class GankioAndroidBean extends GankioBean implements MultiItemEntity{
     public int getItemType() {
         return null == getImages()|| 0==getImages().size() ? TEXT: TEXT_IMAGE;
     }
+
+    @Override
+    public String toString() {
+        return "GankioAndroidBean{" +
+                "_id='" + _id + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", desc='" + desc + '\'' +
+                ", publishedAt='" + publishedAt + '\'' +
+                ", source='" + source + '\'' +
+                ", type='" + type + '\'' +
+                ", url='" + url + '\'' +
+                ", used=" + used +
+                ", who='" + who + '\'' +
+                ", images=" + images +
+                '}';
+    }
 }

@@ -1,45 +1,52 @@
 package com.silence.latte.ec.register;
 
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.util.Patterns;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.silence.latte.delegates.LatteFragment;
 import com.silence.latte.ec.R;
-import com.silence.latte.ec.R2;
+import com.silence.latte.ec.bean.SingUpInfo;
+import com.silence.latte.ec.databinding.FragmentRegisterBinding;
 import com.silence.latte.ec.login.LoginFragment;
 
-import butterknife.BindView;
-import butterknife.OnClick;
+import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RegisterFragment extends LatteFragment {
+public class RegisterFragment extends SwipeBackFragment {
 
 
-    @BindView(R2.id.edit_register_name)
-    TextInputEditText mEditRegisterName;
-    @BindView(R2.id.edit_register_age)
-    TextInputEditText mEditRegisterAge;
-    @BindView(R2.id.edit_register_phone)
-    TextInputEditText mEditRegisterPhone;
-    @BindView(R2.id.edit_register_email)
-    TextInputEditText mEditRegisterEmail;
+    private FragmentRegisterBinding mBinding;
+
 
     @Override
-    public Object setLayout() {
-        return R.layout.fragment_register;
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_register, container, false);
+        return mBinding.getRoot();
     }
 
     @Override
-    public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+        SingUpInfo signUpInfo = new SingUpInfo("123", "12", "134567452345", "123@123.com");
+        mBinding.setSignUpInfo(signUpInfo);
     }
 
     public static RegisterFragment newInstance() {
@@ -53,53 +60,53 @@ public class RegisterFragment extends LatteFragment {
 
 
     private boolean checkForm() {
-        String name = mEditRegisterName.getText().toString();
-        String age = mEditRegisterAge.getText().toString();
-        String phone = mEditRegisterPhone.getText().toString();
-        String email = mEditRegisterEmail.getText().toString();
+        String name = mBinding.editRegisterName.getText().toString();
+        String age = mBinding.editRegisterAge.getText().toString();
+        String phone = mBinding.editRegisterPhone.getText().toString();
+        String email = mBinding.editRegisterEmail.getText().toString();
 
         boolean isPass = true;
 
         if (name.isEmpty()) {
-            mEditRegisterName.setError("请输入姓名");
+            mBinding.editRegisterName.setError("请输入姓名");
             isPass = false;
         } else {
-            mEditRegisterName.setError(null);
+            mBinding.editRegisterName.setError(null);
         }
 
         if (age.isEmpty() || Integer.valueOf(age) < 0 || Integer.valueOf(age) > 100) {
-            mEditRegisterAge.setError("请输入正确的年龄");
+            mBinding.editRegisterAge.setError("请输入正确的年龄");
             isPass = false;
         } else {
-            mEditRegisterAge.setError(null);
+            mBinding.editRegisterAge.setError(null);
         }
 
         if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            mEditRegisterEmail.setError("请输入正确的邮箱");
+            mBinding.editRegisterEmail.setError("请输入正确的邮箱");
             isPass = false;
         } else {
-            mEditRegisterEmail.setError(null);
+            mBinding.editRegisterEmail.setError(null);
         }
 
         if (phone.isEmpty() || phone.length() != 11) {
-            mEditRegisterPhone.setError("请输入正确的手机号码");
+            mBinding.editRegisterPhone.setError("请输入正确的手机号码");
             isPass = false;
         } else {
-            mEditRegisterPhone.setError(null);
+            mBinding.editRegisterPhone.setError(null);
         }
 
         return isPass;
     }
 
-    @OnClick(R2.id.icon_register_in_wechat)
-    public void onClickWechat() {
-        start(new LoginFragment());
-    }
+    public class Presenter {
+        public void onClick(View view) {
+            start(new LoginFragment());
+        }
 
-    @OnClick(R2.id.btn_register)
-    public void onViewClicked() {
-        if (checkForm()) {
-            Toast.makeText(getContext(), "恭喜你， 注册成功了", Toast.LENGTH_LONG).show();
+        public void onViewClicked(View view) {
+            if (checkForm()) {
+                Toast.makeText(getContext(), "恭喜你， 注册成功了", Toast.LENGTH_LONG).show();
+            }
         }
     }
 

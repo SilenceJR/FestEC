@@ -16,16 +16,16 @@ public class GankioBean {
      * who : Hong Duan
      */
 
-    private String _id;
-    private String createdAt;
-    private String desc;
-    private String publishedAt;
-    private String source;
-    private String type;
-    private String url;
-    private boolean used;
-    private String who;
-    private List<String> images;
+    protected String _id;
+    protected String createdAt;
+    protected String desc;
+    protected String publishedAt;
+    protected String source;
+    protected String type;
+    protected String url;
+    protected boolean used;
+    protected String who;
+    protected List<String> images;
 
     public String get_id() {
         return _id;

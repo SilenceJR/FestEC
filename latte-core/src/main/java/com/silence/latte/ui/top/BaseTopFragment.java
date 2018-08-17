@@ -88,7 +88,7 @@ public abstract class BaseTopFragment extends LatteFragment implements Navigatio
         for (int i = 0; i < size; i++) {
             mTabLayout.addTab(mTabLayout.newTab().setText(ITEMS.get(i).getTitle()));
         }
-        TopFragmentViewPager adapter = new TopFragmentViewPager(getFragmentManager(), ITEMS);
+        TopFragmentViewPager adapter = new TopFragmentViewPager(getChildFragmentManager(), ITEMS);
         mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);
     }

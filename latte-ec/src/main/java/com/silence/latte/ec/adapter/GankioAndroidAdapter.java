@@ -34,6 +34,11 @@ public class GankioAndroidAdapter extends BaseMultiItemQuickAdapter<GankioAndroi
     }
 
     @Override
+    protected BaseViewHolder createBaseViewHolder(View view) {
+        return super.createBaseViewHolder(view);
+    }
+
+    @Override
     protected void convert(BaseViewHolder helper, GankioAndroidBean item) {
         helper.setText(R.id.item_tv, item.getDesc());
         AppCompatImageView iv = helper.getView(R.id.item_iv);
